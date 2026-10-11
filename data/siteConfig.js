@@ -1,0 +1,365 @@
+export const siteConfig = {
+  recipientName: 'Her Name',
+  senderName: 'Your Name',
+  defaultLanguage: 'en',
+  enableMusic: true,
+  enableParticles: true,
+  enableTerminal: true,
+  enableEasterEggs: true,
+  greeting: {
+    en: "Happy Girls' Day",
+    fa: 'روز دختر مبارک',
+  },
+};
+
+export const translations = {
+  en: {
+    nav: { home: 'Home', story: 'Story', dream: 'Dreams', surprise: 'Surprise' },
+    techTitle: "The Builder's Toolkit",
+    hero: {
+      eyebrow: "Girls' Day // Digital Experience",
+      title: "Happy Girls' Day",
+      subtitle: [
+        'Some people make the world beautiful.',
+        'Some people make life meaningful.',
+        'And some people do both.',
+      ],
+      mainButton: 'Run the Surprise ▶',
+      secondaryButton: 'Explore the Story',
+      intro1: 'Initializing a special experience...',
+      intro2: 'Made with code, creativity, and a little bit of magic ✨',
+      mainMessage:
+        "If happiness could be compiled, if dreams could be deployed, and if smiles could be saved forever, I would write a program where yours never disappears.",
+      keepDreaming: 'Keep dreaming.',
+      keepCreating: 'Keep creating.',
+      keepLearning: 'Keep learning.',
+      keepBuilding: 'Keep building your future.',
+      mayYourDreams: 'And may your dreams never return 404. 💖',
+    },
+    boot: {
+      lines: [
+        'Initializing GirlsDay.exe...',
+        'Loading happiness............. 100%',
+        'Loading dreams................ 100%',
+        'Installing confidence......... DONE',
+        'Removing sadness.............. DONE',
+        'Generating smiles............. DONE',
+        'Preparing beautiful future... DONE',
+        'BUILD SUCCESSFUL ✓',
+        'Launching surprise...',
+      ],
+      replay: 'Replay',
+      sectionTitle: 'Boot Sequence',
+    },
+    editor: {
+      label: 'Run Code',
+      copy: 'Copy Code',
+      full: 'Fullscreen',
+      tab: 'girls-day.js',
+      title: 'Code Editor',
+      code: `const specialGirl = {
+    smile: "Beautiful 🌸",
+    kindness: Infinity,
+    dreams: Infinity,
+    confidence: "100%",
+    happiness: "Loading...",
+    giveUp: false
+};
+
+function celebrateGirlsDay() {
+    specialGirl.happiness = Infinity;
+
+    return {
+        message: "Happy Girls' Day 💖",
+        dreams: "Unlimited",
+        confidence: "Unbreakable",
+        future: "Beautiful"
+    };
+}
+
+celebrateGirlsDay();`,
+      outcome: [
+        '> Compiling happiness...',
+        '> Adding beautiful dreams...',
+        '> Installing courage...',
+        '> Removing sadness...',
+        '> Creating smiles...',
+        '> Building future...',
+        'SUCCESS ✓',
+      ],
+    },
+    mainGreeting: {
+      headline: "Happy Girls' Day 🌷",
+      message:
+        'If happiness could be compiled, if dreams could be deployed, and if smiles could be saved forever, I would write a program where yours never disappears.',
+      paragraph2: 'Keep dreaming. Keep creating. Keep learning. Keep building your future.',
+      paragraph3: 'And may your dreams never return 404. 💖',
+    },
+    envelope: {
+      title: 'You have one unread message 💌',
+      button: 'Open Message',
+      cardTitle: 'This is not just another card.',
+      body:
+        'It is a little piece of code created to remind you that your dreams deserve to become reality.',
+      close: 'Keep shining. ✨',
+    },
+    dreamCompiler: {
+      title: "Dream Compiler ✨",
+      placeholder: 'Write one of your dreams...',
+      button: 'Compile My Dream',
+      fallbackDream: 'Big dreams',
+      outputLabel: 'Output',
+      initialOutput: [
+        'Scanning dream...',
+        'Removing self-doubt...',
+        'Installing confidence...',
+        'Building future...',
+      ],
+      output: [
+        'Scanning dream...',
+        'Removing self-doubt...',
+        'Installing confidence...',
+        'Searching possibilities...',
+        'Building future...',
+        '',
+        'COMPILATION SUCCESSFUL ✓',
+        '',
+        'Your dream deserves a chance.',
+        'Keep building it.',
+      ],
+    },
+    error404: {
+      title: 'ERROR 404',
+      subtitle: 'Sadness Not Found.',
+      line1: 'Searching system...',
+      line2: 'Confidence Found ✓',
+      line3: 'Dreams Found ✓',
+      line4: 'Courage Found ✓',
+      line5: 'Happiness Found ✓',
+      line6: 'Beautiful Future Found ✓',
+    },
+    journey: {
+      title: 'Dream Journey',
+      steps: [
+        { title: 'Dream', text: 'Everything beautiful starts with a dream.' },
+        { title: 'Believe', text: 'Believe that you are capable.' },
+        { title: 'Learn', text: 'Every new skill unlocks another possibility.' },
+        { title: 'Create', text: 'Turn ideas into something real.' },
+        { title: 'Grow', text: 'Every challenge can teach you something.' },
+        { title: 'Shine', text: 'Let the world see what you can become.' },
+      ],
+    },
+    terminal: {
+      commands: ['help', 'whoami', 'dreams', 'future', 'smile', 'surprise', 'clear'],
+      help: 'Available commands: help, whoami, dreams, future, smile, surprise, clear',
+      whoami: 'You are magic.',
+      dreams: 'Status: Unlimited\nProgress: ∞\nPermission: Never give up',
+      future: 'Compiling...\nResult: Beautiful ✨\nStatus: Success',
+      smile: 'Executing smile()...\nSuccess 💖',
+      surprise: 'Unlocking secret message...\nAccess granted ✨',
+      status: 'Confidence installed successfully ✓\nDreams: Unlimited\nFuture: Bright',
+      developerNote: 'No bugs detected in your smile.',
+      title: 'Developer Terminal',
+    },
+    final: {
+      title: 'One last thing...',
+      headline: 'Keep coding your own story.',
+      final: "HAPPY GIRLS' DAY 🌷💖",
+    },
+    footer: {
+      text: 'Designed & Coded with creativity, coffee ☕ and 💖',
+      quote: 'Keep Dreaming • Keep Creating • Keep Growing',
+      code: 'while (alive) {\n    dream();\n    learn();\n    create();\n    grow();\n}',
+    },
+    secret: {
+      title: 'Developer Mode Activated 👩‍💻',
+      subtitle: 'Secret unlocked!',
+      console: 'console.log("You are awesome! ✨");',
+      hiddenMessage: 'You are capable of creating a beautiful life, one brave decision at a time.',
+    },
+    language: 'English',
+    techCards: [
+      { title: 'HTML5', code: '<section class="girl">\n    <dreams>Unlimited</dreams>\n    <future>Beautiful</future>\n</section>' },
+      { title: 'CSS', code: '.girl {\n    confidence: 100%;\n    dreams: infinite;\n    happiness: unlimited;\n}' },
+      { title: 'JavaScript', code: 'const future = () => {\n    return "Beautiful ✨";\n};' },
+      { title: 'React', code: 'function Dreams() {\n    return (\n        <Future unlimited={true} />\n    );\n}' },
+      { title: 'Next.js', code: 'export default function Future() {\n    return <Dreams status="possible" />;\n}' },
+      { title: 'Python', code: 'while True:\n    dream_big()\n    keep_learning()\n    keep_smiling()\n    never_give_up()' },
+      { title: 'Java', code: 'public class Future {\n\n    public static void main(String[] args) {\n\n        System.out.println(\n            "Keep building your dreams!"\n        );\n\n    }\n}' },
+    ],
+  },
+  fa: {
+    nav: { home: 'خانه', story: 'داستان', dream: 'آرزوها', surprise: 'سورپرایز' },
+    techTitle: 'جعبه‌ابزار برنامه‌نویسی',
+    hero: {
+      eyebrow: 'روز دختر // تجربه‌ی دیجیتال',
+      title: 'روز دختر مبارک',
+      subtitle: [
+        'امروز، روز تجلیل از قدرت تو،',
+        'آرزوهای تو، مهربانی تو',
+        'و آینده‌ی زیبایی است که برای خودت می‌سازی.',
+      ],
+      mainButton: 'سورپرایز را اجرا کن ▶',
+      secondaryButton: 'داستان را ببین',
+      intro1: 'در حال آماده‌سازی یک تجربه‌ی خاص...',
+      intro2: 'ساخته شده با کُد، خلاقیت و کمی جادو ✨',
+      mainMessage:
+        'اگر می‌شد خوشحالی را کامپایل کرد، آرزوها را به واقعیت تبدیل کرد و لبخندها را برای همیشه ذخیره نمود، برنامه‌ای می‌نوشتم که لبخندت هیچ‌گاه از بین نرود.',
+      keepDreaming: 'همیشه آرزو کن.',
+      keepCreating: 'همیشه خلق کن.',
+      keepLearning: 'همیشه یاد بگیر.',
+      keepBuilding: 'و آینده‌ات را همان‌گونه که دوست داری بساز.',
+      mayYourDreams: 'و امیدوارم آرزوهایت هیچ‌وقت خطای 404 ندهند. 💖',
+    },
+    boot: {
+      lines: [
+        'در حال آغاز برنامه روز دختر...',
+        'بارگذاری خوشحالی.............. 100%',
+        'بارگذاری آرزوها............... 100%',
+        'نصب اعتماد به نفس............. انجام شد ✓',
+        'حذف غم‌ها..................... انجام شد ✓',
+        'ساخت لبخندها.................. انجام شد ✓',
+        'آماده‌سازی آینده‌ی زیبا....... انجام شد ✓',
+        'ساخت برنامه موفق بود ✓',
+        'سورپرایز در حال اجراست...',
+      ],
+      replay: 'از نو',
+      sectionTitle: 'سکانس راه‌اندازی',
+    },
+    editor: {
+      label: 'اجرای کُد',
+      copy: 'کپی کد',
+      full: 'تمام صفحه',
+      tab: 'girls-day.js',
+      title: 'ویرایشگر کد',
+      code: `const specialGirl = {
+    smile: "Beautiful 🌸",
+    kindness: Infinity,
+    dreams: Infinity,
+    confidence: "100%",
+    happiness: "Loading...",
+    giveUp: false
+};
+
+function celebrateGirlsDay() {
+    specialGirl.happiness = Infinity;
+
+    return {
+        message: "Happy Girls' Day 💖",
+        dreams: "Unlimited",
+        confidence: "Unbreakable",
+        future: "Beautiful"
+    };
+}
+
+celebrateGirlsDay();`,
+      outcome: [
+        '> کامپایل خوشحالی...',
+        '> افزودن آرزوهای زیبا...',
+        '> نصب شجاعت...',
+        '> حذف غم‌ها...',
+        '> ساخت لبخندها...',
+        '> ساخت آینده...',
+        'موفقیت ✓',
+      ],
+    },
+    mainGreeting: {
+      headline: 'روز دختر مبارک 🌷',
+      message:
+        'اگر می‌شد خوشحالی را کامپایل کرد، آرزوها را به واقعیت تبدیل کرد و لبخندها را برای همیشه ذخیره نمود، برنامه‌ای می‌نوشتم که لبخندت هیچ‌گاه از بین نرود.',
+      paragraph2: 'همیشه آرزو کن. همیشه خلق کن. همیشه یاد بگیر. و آینده‌ات را همان‌گونه که دوست داری بساز.',
+      paragraph3: 'و امیدوارم آرزوهایت هیچ‌وقت خطای 404 ندهند. 💖',
+    },
+    envelope: {
+      title: 'یک پیام خوانده‌نشده داری 💌',
+      button: 'باز کردن پیام',
+      cardTitle: 'این فقط یک کارت تبریکی نیست.',
+      body: 'این یک تکه کُد کوچک است تا به تو یادآوری کند که آرزوهایت ارزش واقعی‌شدن را دارند.',
+      close: 'همیشه بدرخش. ✨',
+    },
+    dreamCompiler: {
+      title: 'کامپایلر آرزوها ✨',
+      placeholder: 'یکی از آرزوهایت را بنویس...',
+      button: 'آرزویم را کامپایل کن',
+      fallbackDream: 'آرزوهای بزرگ',
+      outputLabel: 'خروجی',
+      initialOutput: [
+        'در حال بررسی آرزو...',
+        'حذف تردیدها...',
+        'نصب اعتماد به نفس...',
+        'ساخت آینده...',
+      ],
+      output: [
+        'در حال بررسی آرزو...',
+        'حذف تردیدها...',
+        'نصب اعتماد به نفس...',
+        'جستجوی فرصت‌ها...',
+        'ساخت آینده...',
+        '',
+        'کامپایل موفق بود ✓',
+        '',
+        'آرزویت ارزش تلاش کردن را دارد.',
+        'برای ساختنش ادامه بده.',
+      ],
+    },
+    error404: {
+      title: 'خطای 404',
+      subtitle: 'غم پیدا نشد!',
+      line1: 'جستجو در سیستم...',
+      line2: 'اعتماد به نفس پیدا شد ✓',
+      line3: 'آرزوها پیدا شدند ✓',
+      line4: 'شجاعت پیدا شد ✓',
+      line5: 'خوشحالی پیدا شد ✓',
+      line6: 'آینده‌ی زیبا پیدا شد ✓',
+    },
+    journey: {
+      title: 'مسیر آرزو',
+      steps: [
+        { title: 'آرزو کن', text: 'هر چیز زیبا با یک آرزو آغاز می‌شود.' },
+        { title: 'باور کن', text: 'باور داشته باش که می‌توانی.' },
+        { title: 'یاد بگیر', text: 'هر مهارت تازه، یک فرصت تازه می‌سازد.' },
+        { title: 'خلق کن', text: 'ایده‌هایت را به واقعیت تبدیل کن.' },
+        { title: 'رشد کن', text: 'از هر چالش چیزی تازه بیاموز.' },
+        { title: 'بدرخش', text: 'بگذار دنیا ببیند که چه کسی می‌توانی باشی.' },
+      ],
+    },
+    terminal: {
+      commands: ['help', 'whoami', 'dreams', 'future', 'smile', 'surprise', 'clear'],
+      help: 'دستورات موجود: help، whoami، dreams، future، smile، surprise، clear',
+      whoami: 'تو جادویی.',
+      dreams: 'وضعیت: نامحدود\nپیشرفت: ∞\nمجوز: هرگز ناامید نشو',
+      future: 'در حال کامپایل...\nنتیجه: زیبا ✨\nوضعیت: موفق',
+      smile: 'در حال اجرای smile()...\nموفقیت 💖',
+      surprise: 'در حال باز کردن پیام مخفی...\nدسترسی داده شد ✨',
+      status: 'اعتماد به نفس با موفقیت نصب شد ✓\nآرزوها: نامحدود\nآینده: روشن',
+      developerNote: 'در لبخندت هیچ باگی پیدا نشد.',
+      title: 'ترمینال توسعه',
+    },
+    final: {
+      title: 'و یک حرف آخر...',
+      headline: 'داستان زندگی‌ات را خودت کُدنویسی کن.',
+      final: 'روز دختر مبارک 🌷💖',
+    },
+    footer: {
+      text: 'طراحی و کُدنویسی شده با خلاقیت، قهوه ☕ و 💖',
+      quote: 'آرزو کن • خلق کن • یاد بگیر • رشد کن',
+      code: 'while (alive) {\n    dream();\n    learn();\n    create();\n    grow();\n}',
+    },
+    secret: {
+      title: 'حالت برنامه‌نویس فعال شد 👩‍💻',
+      subtitle: 'راز مخفی باز شد!',
+      console: 'console.log("You are awesome! ✨");',
+      hiddenMessage: 'تو می‌توانی زندگی زیبا و پرمعنایی بسازى؛ یکی یکی تصمیم‌های شجاعانه.',
+    },
+    language: 'دری',
+    techCards: [
+      { title: 'HTML5', code: '<section class="girl">\n    <dreams>Unlimited</dreams>\n    <future>Beautiful</future>\n</section>' },
+      { title: 'CSS', code: '.girl {\n    confidence: 100%;\n    dreams: infinite;\n    happiness: unlimited;\n}' },
+      { title: 'JavaScript', code: 'const future = () => {\n    return "Beautiful ✨";\n};' },
+      { title: 'React', code: 'function Dreams() {\n    return (\n        <Future unlimited={true} />\n    );\n}' },
+      { title: 'Next.js', code: 'export default function Future() {\n    return <Dreams status="possible" />;\n}' },
+      { title: 'Python', code: 'while True:\n    dream_big()\n    keep_learning()\n    keep_smiling()\n    never_give_up()' },
+      { title: 'Java', code: 'public class Future {\n\n    public static void main(String[] args) {\n\n        System.out.println(\n            "Keep building your dreams!"\n        );\n\n    }\n}' },
+    ],
+  },
+};

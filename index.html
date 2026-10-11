@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Girls' Day Experience</title>
+    <meta name="description" content="A premium interactive Girls' Day celebration experience." />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="theme-midnight">
+    <div class="particles" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <div class="container nav-wrap">
+        <a href="#hero" class="brand" aria-label="Back to top">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span>GirlsDay</span>
+        </a>
+
+        <div class="top-actions">
+          <button type="button" class="theme-button" data-theme-toggle aria-label="Toggle theme">
+            Theme: Midnight
+          </button>
+          <button type="button" class="music-button" data-music-toggle aria-label="Toggle music status">
+            ♫ Music: OFF
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" id="hero">
+        <div class="container hero-inner">
+          <div class="hero-copy reveal">
+            <span class="eyebrow">Girls' Day // Digital Experience</span>
+            <h1>
+              <span class="gradient-text">Happy Girls' Day</span>
+              <span class="cursor" aria-hidden="true"></span>
+            </h1>
+            <p>
+              Some people make the world beautiful.<br />
+              Some people make life meaningful.<br />
+              And some people do both.
+            </p>
+
+            <div class="cta-row">
+              <button type="button" class="primary-button" id="run-surprise">Run the Surprise ▶</button>
+              <button type="button" class="secondary-button" id="scroll-story">Explore the Story</button>
+            </div>
+
+            <div class="meta-strip" aria-label="Highlights">
+              <span class="meta-pill">✨ Joy</span>
+              <span class="meta-pill">💡 Confidence</span>
+              <span class="meta-pill">🌷 Dreams</span>
+            </div>
+          </div>
+
+          <div class="hero-visual reveal" aria-label="Developer inspired design preview">
+            <div class="orbit" aria-hidden="true"></div>
+
+            <div class="floating-card card-one">Dreams: Unlimited</div>
+            <div class="floating-card card-two">Confidence: 100%</div>
+
+            <div class="editor-shell" role="img" aria-label="Editor preview window">
+              <div class="editor-header">
+                <div class="window-controls" aria-hidden="true">
+                  <span class="dot red"></span>
+                  <span class="dot yellow"></span>
+                  <span class="dot green"></span>
+                </div>
+                <div class="file-name">girls-day.js</div>
+              </div>
+
+              <div class="editor-body">
+<span class="pink">const</span> <span class="purple">specialGirl</span> = {
+  <span class="cyan">smile</span>: <span class="green">"Beautiful"</span>,
+  <span class="cyan">kindness</span>: <span class="yellow">Infinity</span>,
+  <span class="cyan">dreams</span>: <span class="yellow">Infinity</span>,
+  <span class="cyan">confidence</span>: <span class="green">"100%"</span>,
+  <span class="cyan">happiness</span>: <span class="green">"loading..."</span>,
+  <span class="cyan">giveUp</span>: <span class="pink">false</span>
+};
+
+<span class="pink">function</span> <span class="purple">celebrateGirlsDay</span>() {
+  <span class="purple">specialGirl</span>.<span class="cyan">happiness</span> = <span class="yellow">Infinity</span>;
+  <span class="pink">return</span> {
+    <span class="cyan">message</span>: <span class="green">"Happy Girls' Day"</span>,
+    <span class="cyan">dreams</span>: <span class="green">"Unlimited"</span>,
+    <span class="cyan">future</span>: <span class="green">"Beautiful"</span>
+  };
+}
+</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="boot-sequence">
+        <div class="container">
+          <div class="section-head reveal">
+            <h2>Boot Sequence</h2>
+            <button type="button" class="ghost-button" id="replay-boot">Replay</button>
+          </div>
+
+          <div class="panel boot-sequence reveal">
+            <ul class="boot-lines" aria-live="polite"></ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="editor-card reveal">
+            <div class="editor-topbar">
+              <div class="editor-left">
+                <div class="window-controls" aria-hidden="true">
+                  <span class="dot red"></span>
+                  <span class="dot yellow"></span>
+                  <span class="dot green"></span>
+                </div>
+                <div class="file-tab">girls-day.js</div>
+              </div>
+              <div class="file-tab">main</div>
+            </div>
+
+            <div class="code-window">
+              <div class="code-line"><span class="line-no">1</span><span><span class="token-key">const</span> <span class="token-func">specialGirl</span> = {</span></div>
+              <div class="code-line"><span class="line-no">2</span><span>&nbsp;&nbsp;smile: <span class="token-string">"Beautiful"</span>,</span></div>
+              <div class="code-line"><span class="line-no">3</span><span>&nbsp;&nbsp;kindness: <span class="token-number">Infinity</span>,</span></div>
+              <div class="code-line"><span class="line-no">4</span><span>&nbsp;&nbsp;dreams: <span class="token-number">Infinity</span>,</span></div>
+              <div class="code-line"><span class="line-no">5</span><span>&nbsp;&nbsp;confidence: <span class="token-string">"100%"</span>,</span></div>
+              <div class="code-line"><span class="line-no">6</span><span>&nbsp;&nbsp;happiness: <span class="token-string">"loading..."</span>,</span></div>
+              <div class="code-line"><span class="line-no">7</span><span>&nbsp;&nbsp;giveUp: <span class="token-bool">false</span></span></div>
+              <div class="code-line"><span class="line-no">8</span><span>};</span></div>
+              <div class="code-line"><span class="line-no">9</span><span></span></div>
+              <div class="code-line"><span class="line-no">10</span><span><span class="token-key">function</span> <span class="token-func">celebrateGirlsDay</span>() {</span></div>
+              <div class="code-line"><span class="line-no">11</span><span>&nbsp;&nbsp;<span class="token-func">specialGirl</span>.happiness = <span class="token-number">Infinity</span>;</span></div>
+              <div class="code-line"><span class="line-no">12</span><span>&nbsp;&nbsp;<span class="token-key">return</span> {</span></div>
+              <div class="code-line"><span class="line-no">13</span><span>&nbsp;&nbsp;&nbsp;&nbsp;message: <span class="token-string">"Happy Girls' Day"</span>,</span></div>
+              <div class="code-line"><span class="line-no">14</span><span>&nbsp;&nbsp;&nbsp;&nbsp;dreams: <span class="token-string">"Unlimited"</span>,</span></div>
+              <div class="code-line"><span class="line-no">15</span><span>&nbsp;&nbsp;&nbsp;&nbsp;future: <span class="token-string">"Beautiful"</span></span></div>
+              <div class="code-line"><span class="line-no">16</span><span>&nbsp;&nbsp;};</span></div>
+              <div class="code-line"><span class="line-no">17</span><span>}</span></div>
+            </div>
+
+            <div class="editor-actions">
+              <button type="button" class="run-button" id="run-code">Run Code</button>
+            </div>
+          </div>
+
+          <div class="message-stage reveal" id="message">
+            <div class="greeting-card">
+              <h3>Happy Girls' Day 🌷</h3>
+              <p>
+                If happiness could be compiled, if dreams could be deployed, and if smiles could be stored forever,
+                I would build a world where yours never disappears.
+              </p>
+              <p>
+                May your dreams never return 404.<br />
+                Keep dreaming. Keep creating. Keep becoming the amazing person you are.
+              </p>
+
+              <div class="terminal-shell" aria-live="polite">
+                <div><span class="prompt">girl@future:~$</span> compile dreams</div>
+                <div class="output">Status: Unlimited<br />Result: Beautiful ✨</div>
+                <div><span class="prompt">girl@future:~$</span> launch smile()</div>
+                <div class="output">Success 💖</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-head reveal">
+            <h2>Developer Terminal</h2>
+          </div>
+
+          <div class="panel terminal-panel reveal">
+            <div class="terminal-grid">
+              <div>
+                <div class="terminal-output" aria-live="polite">
+<span class="prompt">girl@future:~$</span> help
+Available commands:
+help
+whoami
+dreams
+future
+smile
+surprise
+clear
+                </div>
+
+                <div class="command-board" aria-label="Terminal commands">
+                  <button type="button" class="command-button" data-command="help">help</button>
+                  <button type="button" class="command-button" data-command="whoami">whoami</button>
+                  <button type="button" class="command-button" data-command="dreams">dreams</button>
+                  <button type="button" class="command-button" data-command="future">future</button>
+                  <button type="button" class="command-button" data-command="smile">smile</button>
+                  <button type="button" class="command-button" data-command="surprise">surprise</button>
+                  <button type="button" class="command-button" data-command="clear">clear</button>
+                </div>
+              </div>
+
+              <div>
+                <div class="terminal-shell">
+                  <div><span class="prompt">girl@future:~$</span> status</div>
+                  <div class="output">Confidence installed successfully ✓<br />Dreams: Unlimited<br />Future: Bright</div>
+                  <div><span class="prompt">girl@future:~$</span> code</div>
+                  <div class="output">No bugs detected in your smile.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-head reveal">
+            <h2>Technology Cards</h2>
+          </div>
+
+          <div class="tech-grid reveal">
+            <article class="tech-card">
+              <h4>HTML5</h4>
+              <pre>&lt;section class="her-life"&gt;
+  &lt;dreams&gt;Unlimited&lt;/dreams&gt;
+  &lt;confidence&gt;100%&lt;/confidence&gt;
+  &lt;future&gt;Beautiful&lt;/future&gt;
+&lt;/section&gt;</pre>
+            </article>
+
+            <article class="tech-card">
+              <h4>CSS</h4>
+              <pre>.her {
+  confidence: 100%;
+  kindness: infinite;
+  dreams: unlimited;
+  sadness: none;
+}</pre>
+            </article>
+
+            <article class="tech-card">
+              <h4>JavaScript</h4>
+              <pre>const future = () =&gt; {
+  return "Something beautiful";
+};</pre>
+            </article>
+
+            <article class="tech-card">
+              <h4>React</h4>
+              <pre>function Happiness() {
+  return &lt;Dreams unlimited={true} /&gt;;
+}</pre>
+            </article>
+
+            <article class="tech-card">
+              <h4>Next.js</h4>
+              <pre>export default function Future() {
+  return &lt;Success /&gt;;
+}</pre>
+            </article>
+
+            <article class="tech-card">
+              <h4>Python</h4>
+              <pre>while True:
+    dream_big()
+    keep_smiling()
+    never_give_up()</pre>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section gift-section">
+        <div class="container">
+          <div class="section-head reveal">
+            <h2>One Unread Message</h2>
+          </div>
+
+          <div class="gift-card-frame reveal">
+            <div class="envelope" aria-live="polite">
+              <div class="envelope-top"></div>
+              <div class="envelope-front">
+                <div class="content-box">
+                  <h4>💌 You have one unread message</h4>
+                  <button type="button" class="envelope-button" id="open-message">Open Message</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="message-reveal">
+              <h3>Happy Girls' Day 🌷</h3>
+              <p>
+                You carry warmth, strength, and a quiet kind of magic that makes ordinary moments feel meaningful.
+              </p>
+              <p>Keep shining. Keep becoming. Keep building a future that feels like yours.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-head reveal">
+            <h2>Dream Journey</h2>
+          </div>
+
+          <div class="story-grid reveal">
+            <article class="story-item" data-step="01">
+              <h4>Dream</h4>
+              <p>Dream boldly, even when the road is still hidden.</p>
+            </article>
+
+            <article class="story-item" data-step="02">
+              <h4>Believe</h4>
+              <p>Confidence is a quiet force that moves mountains.</p>
+            </article>
+
+            <article class="story-item" data-step="03">
+              <h4>Create</h4>
+              <p>Build the life your future self would be proud of.</p>
+            </article>
+
+            <article class="story-item" data-step="04">
+              <h4>Grow</h4>
+              <p>Growth becomes beautiful when it is gentle and honest.</p>
+            </article>
+
+            <article class="story-item" data-step="05">
+              <h4>Shine</h4>
+              <p>Your light is not extra. It is essential.</p>
+            </article>
+
+            <article class="story-item" data-step="06">
+              <h4>Repeat</h4>
+              <p>Return to dream, to rise, and to keep becoming.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-head reveal">
+            <h2>Dream Compiler</h2>
+          </div>
+
+          <div class="panel dream-box reveal">
+            <div class="compiler">
+              <input id="dream-input" type="text" placeholder="Type a dream..." aria-label="Type a dream" />
+              <button type="button" class="compile-button" id="compile-dream">Compile Dream</button>
+            </div>
+
+            <div class="compiler-output" aria-live="polite">
+Scanning dream...<br />
+Checking possibilities...<br />
+Removing self-doubt...<br />
+Installing courage...<br />
+Building future...<br /><br />
+Compilation Successful ✓
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="panel error-box reveal">
+            <h3>ERROR 404</h3>
+            <p>
+              Sadness Not Found.<br />
+              Searching...<br />
+              Confidence Found ✓<br />
+              Dreams Found ✓<br />
+              Happiness Found ✓<br />
+              Amazing Future Found ✓
+            </p>
+            <button type="button" class="secret-trigger" aria-label="Secret message trigger">✨</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-inner">
+        <div>Designed with HTML + CSS + JavaScript + 💖</div>
+        <div class="footer-code">while(alive) {'{'} dream(); create(); grow(); {'}'}</div>
+      </div>
+    </footer>
+
+    <div class="hidden-message" aria-live="assertive" aria-hidden="true">
+      <div class="hidden-message-card">
+        <h3>You found the hidden message ✨</h3>
+        <p>You are capable of creating a beautiful life, one brave decision at a time.</p>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
