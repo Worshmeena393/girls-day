@@ -1,12 +1,13 @@
 'use client';
 
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { translations, siteConfig } from '../data/siteConfig';
 
 const techBadges = {
-  en: ['✨ Joy', '💡 Confidence', '🌷 Dreams'],
-  fa: ['✨ شادی', '💡 اعتماد به نفس', '🌷 آرزوها'],
+  en: ['🌷 Dreams', '💡 Confidence', '✨ Happiness'],
+  fa: ['🌷 آرزوها', '💡 اعتماد به نفس', '✨ شادی'],
 };
 
 const syntaxPattern = /(\/\*.*?\*\/|"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|\b(?:const|function|return|false|true|new|class|public|static|void|while|export|default|Infinity|True)\b|\b\d+(?:%|\.\d+)?\b)/g;
@@ -331,7 +332,13 @@ function SecretDeveloperMode({ lang }) {
       <button type="button" className="secret-trigger" aria-label={translations[lang].secret.triggerLabel} aria-describedby="secret-hint" onClick={handleClick}>
         🧠
       </button>
-      {!opened && <span className="secret-hint" id="secret-hint" aria-live="polite">{translations[lang].secret.hint.replace('{count}', String(Math.max(0, 5 - clickCount)))}</span>}
+      {!opened && (
+        <span className="secret-hint" id="secret-hint" aria-live="polite">
+          {clickCount === 0
+            ? translations[lang].secret.hintInitial
+            : translations[lang].secret.hint.replace('{count}', String(Math.max(0, 5 - clickCount)))}
+        </span>
+      )}
       {opened && (
         <div className="secret-box">
           <h4>{translations[lang].secret.title}</h4>
@@ -382,6 +389,7 @@ function FooterBlock({ lang }) {
       <div className="container footer-row">
         <div>{translations[lang].footer.text}</div>
         <div className="footer-quote">{translations[lang].footer.quote}</div>
+        <div className="footer-designer">{translations[lang].footer.designer}</div>
       </div>
       <pre className="footer-code ltr-code">{translations[lang].footer.code}</pre>
     </footer>
@@ -389,11 +397,18 @@ function FooterBlock({ lang }) {
 }
 
 export default function Home({ view = 'home' }) {
+  const router = useRouter();
   const [lang, setLang] = useState(siteConfig.defaultLanguage);
   const [isRose, setIsRose] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [ctaStatus, setCtaStatus] = useState('idle');
+  const [buttonBurst, setButtonBurst] = useState(false);
   const [terminalCommand, setTerminalCommand] = useState('help');
   const [selectedTech, setSelectedTech] = useState(-1);
   const [preferencesLoaded, setPreferencesLoaded] = useState(false);
+  const heroTimers = useRef([]);
+
+  useEffect(() => () => heroTimers.current.forEach(clearTimeout), []);
 
   useEffect(() => {
     const stored = localStorage.getItem('girls-day-lang');
@@ -418,74 +433,92 @@ export default function Home({ view = 'home' }) {
 
   const ui = useMemo(() => translations[lang], [lang]);
 
+  const runSurprise = () => {
+    if (ctaStatus !== 'idle') return;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    setCtaStatus('compiling');
+    setButtonBurst(true);
+    heroTimers.current.push(setTimeout(() => setButtonBurst(false), reducedMotion ? 0 : 700));
+    heroTimers.current.push(setTimeout(() => setCtaStatus('success'), reducedMotion ? 0 : 700));
+    heroTimers.current.push(setTimeout(() => router.push('/surprise#surprise'), reducedMotion ? 150 : 1450));
+  };
+
   return (
     <div className={`page-shell ${lang === 'fa' ? 'rtl' : 'ltr'}`} dir={lang === 'fa' ? 'rtl' : 'ltr'}>
       <header className="site-header">
         <div className="container nav-wrap">
           <div className="brand-block">
-            <span className="brand-dot" />
             <span>GirlsDay</span>
+            <span className="brand-dot" aria-hidden="true" />
           </div>
 
-          <nav className="nav" aria-label={lang === 'fa' ? 'پیمایش اصلی' : 'Main navigation'}>
-            <Link href="/">{ui.nav.home}</Link>
-            <Link href="/story">{ui.nav.story}</Link>
-            <Link href="/dreams">{ui.nav.dream}</Link>
-            <Link href="/surprise">{ui.nav.surprise}</Link>
+          <nav id="main-navigation" className={`nav ${mobileMenuOpen ? 'nav-open' : ''}`} aria-label={lang === 'fa' ? 'پیمایش اصلی' : 'Main navigation'}>
+            <Link href="/" aria-current={view === 'home' ? 'page' : undefined} onClick={() => setMobileMenuOpen(false)}>{ui.nav.home}</Link>
+            <Link href="/story" aria-current={view === 'story' ? 'page' : undefined} onClick={() => setMobileMenuOpen(false)}>{ui.nav.story}</Link>
+            <Link href="/dreams" aria-current={view === 'dreams' ? 'page' : undefined} onClick={() => setMobileMenuOpen(false)}>{ui.nav.dream}</Link>
+            <Link href="/surprise" aria-current={view === 'surprise' ? 'page' : undefined} onClick={() => setMobileMenuOpen(false)}>{ui.nav.surprise}</Link>
           </nav>
 
           <div className="nav-tools">
             <ThemeToggle lang={lang} isRose={isRose} onToggle={() => setIsRose((p) => !p)} />
             <LanguageSwitcher language={lang} onChange={setLang} />
+            <button
+              type="button"
+              className="mobile-menu-button"
+              aria-label={mobileMenuOpen ? ui.hero.closeMenu : ui.hero.menu}
+              aria-expanded={mobileMenuOpen}
+              aria-controls="main-navigation"
+              onClick={() => setMobileMenuOpen((open) => !open)}
+            >
+              <span />
+              <span />
+              <span />
+            </button>
           </div>
         </div>
       </header>
 
       <main>
         {view === 'home' && <section className="hero-section" id="hero">
+          {siteConfig.enableParticles && (
+            <div className="hero-atmosphere" aria-hidden="true">
+              {['{ }', '</>', 'const', '01', '✨'].map((symbol, index) => <span key={symbol} className={`hero-symbol hero-symbol-${index + 1}`}>{symbol}</span>)}
+            </div>
+          )}
           <div className="container hero-grid">
-            <div className="hero-copy reveal">
-              <span className="hero-badge">{ui.hero.eyebrow}</span>
-              <TypewriterIntro text={ui.hero.intro1} followup={ui.hero.intro2} lang={lang} />
-              <h1>{ui.hero.title}</h1>
-              <div className="hero-subtitle">
-                {ui.hero.subtitle.map((line) => (
-                  <p key={line}>{line}</p>
-                ))}
+            <div className="hero-copy">
+              <span className="hero-badge hero-entrance" style={{ '--entry-delay': '0ms' }}>{ui.hero.eyebrow}</span>
+              <h1 className="hero-code-title ltr-code hero-entrance" dir="ltr" style={{ '--entry-delay': '90ms' }}>{ui.hero.codeTitle}</h1>
+              <h2 className="hero-greeting hero-entrance" style={{ '--entry-delay': '180ms' }}>{ui.hero.title}</h2>
+              <div className="hero-subtitle hero-entrance" style={{ '--entry-delay': '270ms' }}>
+                {ui.hero.subtitle.map((line) => <p key={line}>{line}</p>)}
               </div>
-              <div className="cta-row">
-                <Link className="primary-button" id="run-surprise" href="/surprise">{ui.hero.mainButton}</Link>
+              <div className="cta-row hero-entrance" style={{ '--entry-delay': '360ms' }}>
+                <button
+                  type="button"
+                  className={`primary-button ${buttonBurst ? 'button-burst' : ''}`}
+                  id="run-surprise"
+                  onClick={runSurprise}
+                  disabled={ctaStatus !== 'idle'}
+                  aria-live="polite"
+                >
+                  {ctaStatus === 'compiling' ? ui.hero.compiling : ctaStatus === 'success' ? ui.hero.success : ui.hero.mainButton}
+                  {buttonBurst && <span className="cta-particles" aria-hidden="true"><i>✦</i><i>✧</i><i>✦</i><i>✧</i></span>}
+                </button>
                 <Link className="secondary-button" href="/story">{ui.hero.secondaryButton}</Link>
               </div>
-              <div className="meta-row">
-                {techBadges[lang].map((item) => (
-                  <span key={item} className="meta-pill">{item}</span>
-                ))}
+              <div className="meta-row hero-entrance" style={{ '--entry-delay': '450ms' }}>
+                {techBadges[lang].map((item) => <span key={item} className="meta-pill">{item}</span>)}
+              </div>
+              <p className="hero-status hero-entrance" style={{ '--entry-delay': '540ms' }}><span aria-hidden="true">●</span> {ui.hero.status}</p>
+              <div className="hero-typewriter hero-entrance" style={{ '--entry-delay': '600ms' }}>
+                <TypewriterIntro text={ui.hero.intro1} followup={ui.hero.intro2} lang={lang} />
               </div>
             </div>
-
-            <div className="hero-card reveal">
-              <div className="code-mockup">
-                <div className="mockup-topbar">
-                  <div className="window-controls">
-                    <span className="dot red" />
-                    <span className="dot yellow" />
-                    <span className="dot green" />
-                  </div>
-                  <span className="mock-file">girls-day.js</span>
-                </div>
-                <div className="mockup-body ltr-code">
-                  <span className="code-key">const</span> specialGirl = {'{'}<br />
-                  &nbsp;&nbsp;smile: <span className="code-string">"Beautiful 🌸"</span>,<br />
-                  &nbsp;&nbsp;kindness: <span className="code-number">Infinity</span>,<br />
-                  &nbsp;&nbsp;dreams: <span className="code-number">Infinity</span>,<br />
-                  &nbsp;&nbsp;confidence: <span className="code-string">"100%"</span>,<br />
-                  &nbsp;&nbsp;happiness: <span className="code-string">"Loading..."</span>,<br />
-                  &nbsp;&nbsp;giveUp: <span className="code-bool">false</span><br />
-                  {'};'}
-                </div>
-              </div>
-            </div>
+            <Link className="scroll-indicator hero-entrance" href="/story" style={{ '--entry-delay': '680ms' }}>
+              <span>{ui.hero.scroll}</span>
+              <span className="scroll-arrow" aria-hidden="true">↓</span>
+            </Link>
           </div>
         </section>}
 
