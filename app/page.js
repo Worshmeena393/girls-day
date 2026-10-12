@@ -386,12 +386,12 @@ function FinalCelebration({ lang }) {
 function FooterBlock({ lang }) {
   return (
     <footer className="site-footer">
-      <div className="container footer-row">
-        <div>{translations[lang].footer.text}</div>
-        <div className="footer-quote">{translations[lang].footer.quote}</div>
-        <div className="footer-designer">{translations[lang].footer.designer}</div>
+      <div className="container footer-content">
+        <p className="footer-credit">{translations[lang].footer.text}</p>
+        <p className="footer-craft">{translations[lang].footer.quote}</p>
+        <pre className="footer-code ltr-code">{translations[lang].footer.code}</pre>
+        <p className="footer-closing">{translations[lang].footer.closing}</p>
       </div>
-      <pre className="footer-code ltr-code">{translations[lang].footer.code}</pre>
     </footer>
   );
 }
