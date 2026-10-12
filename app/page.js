@@ -4,32 +4,29 @@ import Link from 'next/link';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { translations, siteConfig } from '../data/siteConfig';
 
-const codeExamples = [
-  { title: 'HTML5', code: '<section class="girl">\n    <dreams>Unlimited</dreams>\n    <future>Beautiful</future>\n</section>' },
-  { title: 'CSS', code: '.girl {\n    confidence: 100%;\n    dreams: infinite;\n    happiness: unlimited;\n}' },
-  { title: 'JavaScript', code: 'const future = () => {\n    return "Beautiful ✨";\n};' },
-  { title: 'React', code: 'function Dreams() {\n    return (\n        <Future unlimited={true} />\n    );\n}' },
-  { title: 'Next.js', code: 'export default function Future() {\n    return <Dreams status="possible" />;\n}' },
-  { title: 'Python', code: 'while True:\n    dream_big()\n    keep_learning()\n    keep_smiling()\n    never_give_up()' },
-  { title: 'Java', code: 'public class Future {\n\n    public static void main(String[] args) {\n\n        System.out.println(\n            "Keep building your dreams!"\n        );\n\n    }\n}' },
-];
-
 const techBadges = {
   en: ['✨ Joy', '💡 Confidence', '🌷 Dreams'],
   fa: ['✨ شادی', '💡 اعتماد به نفس', '🌷 آرزوها'],
 };
 
-const bootSequence = [
-  'Initializing GirlsDay.exe...',
-  'Loading happiness............. 100%',
-  'Loading dreams................ 100%',
-  'Installing confidence......... DONE',
-  'Removing sadness.............. DONE',
-  'Generating smiles............. DONE',
-  'Preparing beautiful future... DONE',
-  'BUILD SUCCESSFUL ✓',
-  'Launching surprise...',
-];
+const syntaxPattern = /(\/\*.*?\*\/|"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|\b(?:const|function|return|false|true|new|class|public|static|void|while|export|default|Infinity|True)\b|\b\d+(?:%|\.\d+)?\b)/g;
+
+function HighlightedCode({ line }) {
+  const parts = line.split(syntaxPattern).filter((part) => part !== undefined);
+
+  return parts.map((part, index) => {
+    if (!part) return null;
+    const className = /^("|'|\/\*)/.test(part)
+      ? 'syntax-string'
+      : /^(?:false|true|Infinity|True|\d)/.test(part)
+        ? 'syntax-value'
+        : syntaxPattern.test(part)
+          ? 'syntax-keyword'
+          : '';
+    syntaxPattern.lastIndex = 0;
+    return className ? <span className={className} key={`${part}-${index}`}>{part}</span> : part;
+  });
+}
 
 function ThemeToggle({ lang, onToggle, isRose }) {
   return (
@@ -41,7 +38,7 @@ function ThemeToggle({ lang, onToggle, isRose }) {
 
 function LanguageSwitcher({ language, onChange }) {
   return (
-    <div className="lang-switch" role="tablist" aria-label="Language switcher">
+    <div className="lang-switch" role="group" aria-label={language === 'fa' ? 'انتخاب زبان' : 'Choose language'}>
       <button
         type="button"
         className={language === 'en' ? 'lang active' : 'lang'}
@@ -62,22 +59,31 @@ function LanguageSwitcher({ language, onChange }) {
   );
 }
 
-function TypewriterIntro({ text, lang }) {
+function TypewriterIntro({ text, followup, lang }) {
   const [current, setCurrent] = useState('');
+  const [showFollowup, setShowFollowup] = useState(false);
 
   useEffect(() => {
     let i = 0;
+    setCurrent('');
+    setShowFollowup(false);
     const timer = setInterval(() => {
       i += 1;
       setCurrent(text.slice(0, i));
       if (i >= text.length) {
         clearInterval(timer);
+        setShowFollowup(true);
       }
     }, 32);
     return () => clearInterval(timer);
   }, [text]);
 
-  return <div className="typewriter" dir={lang === 'fa' ? 'rtl' : 'ltr'}>{current}<span className="cursor" /></div>;
+  return (
+    <div className="typewriter-group" dir={lang === 'fa' ? 'rtl' : 'ltr'}>
+      <div className="typewriter">{current}<span className="cursor" /></div>
+      {showFollowup && <div className="typewriter-followup">{followup}</div>}
+    </div>
+  );
 }
 
 function BootTerminal({ lang }) {
@@ -124,15 +130,28 @@ function BootTerminal({ lang }) {
 
 function CodeEditor({ lang }) {
   const [copied, setCopied] = useState(false);
-  const [hasRun, setHasRun] = useState(false);
+  const [runKey, setRunKey] = useState(0);
+  const [visibleOutcome, setVisibleOutcome] = useState(0);
   const editorRef = useRef(null);
+  const copyTimer = useRef(null);
   const code = translations[lang].editor.code;
+  const outcome = translations[lang].editor.outcome;
+
+  useEffect(() => () => clearTimeout(copyTimer.current), []);
+
+  useEffect(() => {
+    if (!runKey) return undefined;
+    setVisibleOutcome(0);
+    const timers = outcome.map((_, index) => setTimeout(() => setVisibleOutcome(index + 1), 360 * (index + 1)));
+    return () => timers.forEach(clearTimeout);
+  }, [runKey, outcome]);
 
   const copyCode = async () => {
     try {
       await navigator.clipboard.writeText(code);
       setCopied(true);
-      setTimeout(() => setCopied(false), 1400);
+      clearTimeout(copyTimer.current);
+      copyTimer.current = setTimeout(() => setCopied(false), 1400);
     } catch {
       setCopied(false);
     }
@@ -165,17 +184,18 @@ function CodeEditor({ lang }) {
         {code.split('\n').map((line, idx) => (
           <div key={`${line}-${idx}`} className="code-line">
             <span className="line-number">{idx + 1}</span>
-            <span className="code-content">{line}</span>
+            <span className="code-content"><HighlightedCode line={line} /></span>
           </div>
         ))}
       </div>
 
       <div className="editor-footer">
-        <button type="button" className="run-button" onClick={() => setHasRun(true)}>{translations[lang].editor.label}</button>
+        <button type="button" className="run-button" onClick={() => setRunKey((key) => key + 1)}>{translations[lang].editor.label}</button>
       </div>
-      {hasRun && (
+      {runKey > 0 && (
         <div className="editor-result ltr-code" role="status">
-          {translations[lang].editor.outcome.map((line) => <div key={line}>{line}</div>)}
+          {outcome.slice(0, visibleOutcome).map((line) => <div key={line}>{line}</div>)}
+          {visibleOutcome === outcome.length && <div className="run-celebration">✨ {translations[lang].editor.celebration}</div>}
         </div>
       )}
     </div>
@@ -210,11 +230,22 @@ function DigitalEnvelope({ lang }) {
 
 function DreamCompiler({ lang }) {
   const [dream, setDream] = useState('');
-  const [result, setResult] = useState('');
+  const [compiledDream, setCompiledDream] = useState('');
+  const [compileKey, setCompileKey] = useState(0);
+  const [visibleOutput, setVisibleOutput] = useState(0);
+  const output = translations[lang].dreamCompiler.output;
+
+  useEffect(() => {
+    if (!compileKey) return undefined;
+    setVisibleOutput(0);
+    const timers = output.map((_, index) => setTimeout(() => setVisibleOutput(index + 1), 300 * (index + 1)));
+    return () => timers.forEach(clearTimeout);
+  }, [compileKey, output]);
 
   const handleCompile = () => {
     const cleanedDream = dream.trim() || translations[lang].dreamCompiler.fallbackDream;
-    setResult(cleanedDream);
+    setCompiledDream(cleanedDream);
+    setCompileKey((key) => key + 1);
   };
 
   return (
@@ -232,17 +263,33 @@ function DreamCompiler({ lang }) {
         <button type="button" className="compile-button" onClick={handleCompile}>{translations[lang].dreamCompiler.button}</button>
       </div>
       <div className="compiler-output ltr-code" aria-live="polite">
-        {(result ? [...translations[lang].dreamCompiler.output, '', `${translations[lang].dreamCompiler.outputLabel}: ${result}`] : translations[lang].dreamCompiler.initialOutput).map((line, index) => <div key={`${line}-${index}`}>{line || '\u00a0'}</div>)}
+        {(compileKey ? [...output.slice(0, visibleOutput), ...(visibleOutput === output.length ? ['', `${translations[lang].dreamCompiler.outputLabel}: ${compiledDream}`] : [])] : translations[lang].dreamCompiler.initialOutput).map((line, index) => <div key={`${line}-${index}`}>{line || '\u00a0'}</div>)}
       </div>
     </div>
   );
 }
 
 function JourneyTimeline({ lang }) {
+  const [selectedStep, setSelectedStep] = useState(-1);
+
   return (
     <div className="journey-grid reveal">
       {translations[lang].journey.steps.map((step, index) => (
-        <article className="journey-card" key={step.title} data-step={String(index + 1).padStart(2, '0')}>
+        <article
+          className={`journey-card ${selectedStep === index ? 'selected' : ''}`}
+          key={step.title}
+          data-step={String(index + 1).padStart(2, '0')}
+          role="button"
+          tabIndex={0}
+          aria-pressed={selectedStep === index}
+          onClick={() => setSelectedStep(selectedStep === index ? -1 : index)}
+          onKeyDown={(event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+              event.preventDefault();
+              setSelectedStep(selectedStep === index ? -1 : index);
+            }
+          }}
+        >
           <span className="journey-index">{String(index + 1).padStart(2, '0')}</span>
           <h4>{step.title}</h4>
           <p>{step.text}</p>
@@ -271,11 +318,20 @@ function Error404({ lang }) {
 
 function SecretDeveloperMode({ lang }) {
   const [opened, setOpened] = useState(false);
+  const [clickCount, setClickCount] = useState(0);
+
+  const handleClick = () => {
+    const nextCount = clickCount + 1;
+    setClickCount(nextCount);
+    if (nextCount >= 5) setOpened(true);
+  };
+
   return (
     <div className="secret-panel reveal">
-      <button type="button" className="secret-trigger" aria-label={lang === 'fa' ? 'تغییر حالت مخفی' : 'Secret developer trigger'} onClick={() => setOpened(true)}>
+      <button type="button" className="secret-trigger" aria-label={translations[lang].secret.triggerLabel} aria-describedby="secret-hint" onClick={handleClick}>
         🧠
       </button>
+      {!opened && <span className="secret-hint" id="secret-hint" aria-live="polite">{translations[lang].secret.hint.replace('{count}', String(Math.max(0, 5 - clickCount)))}</span>}
       {opened && (
         <div className="secret-box">
           <h4>{translations[lang].secret.title}</h4>
@@ -288,8 +344,29 @@ function SecretDeveloperMode({ lang }) {
 }
 
 function FinalCelebration({ lang }) {
+  const celebrationRef = useRef(null);
+  const [entered, setEntered] = useState(false);
+
+  useEffect(() => {
+    const node = celebrationRef.current;
+    if (!node) return undefined;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setEntered(true);
+        observer.disconnect();
+      }
+    }, { threshold: 0.25 });
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className="final-celebration reveal">
+    <section className={`final-celebration ${entered ? 'entered' : ''}`} ref={celebrationRef}>
+      {siteConfig.enableParticles && (
+        <div className="celebration-sky" aria-hidden="true">
+          {['✿', '✦', '♡', '✧', '✿', '✦', '♡', '✧', '✿', '✦', '♡', '✧'].map((symbol, index) => <span key={`${symbol}-${index}`}>{symbol}</span>)}
+        </div>
+      )}
       <div className="final-content">
         <p>{translations[lang].final.title}</p>
         <h3>{translations[lang].final.headline}</h3>
@@ -315,6 +392,7 @@ export default function Home({ view = 'home' }) {
   const [lang, setLang] = useState(siteConfig.defaultLanguage);
   const [isRose, setIsRose] = useState(false);
   const [terminalCommand, setTerminalCommand] = useState('help');
+  const [selectedTech, setSelectedTech] = useState(-1);
   const [preferencesLoaded, setPreferencesLoaded] = useState(false);
 
   useEffect(() => {
@@ -328,7 +406,7 @@ export default function Home({ view = 'home' }) {
   useEffect(() => {
     if (!preferencesLoaded) return;
     localStorage.setItem('girls-day-lang', lang);
-    document.documentElement.lang = lang === 'fa' ? 'prs-AF' : 'en';
+    document.documentElement.lang = lang === 'fa' ? 'fa-AF' : 'en';
     document.documentElement.dir = lang === 'fa' ? 'rtl' : 'ltr';
   }, [lang, preferencesLoaded]);
 
@@ -349,7 +427,7 @@ export default function Home({ view = 'home' }) {
             <span>GirlsDay</span>
           </div>
 
-          <nav className="nav" aria-label="Main navigation">
+          <nav className="nav" aria-label={lang === 'fa' ? 'پیمایش اصلی' : 'Main navigation'}>
             <Link href="/">{ui.nav.home}</Link>
             <Link href="/story">{ui.nav.story}</Link>
             <Link href="/dreams">{ui.nav.dream}</Link>
@@ -368,7 +446,7 @@ export default function Home({ view = 'home' }) {
           <div className="container hero-grid">
             <div className="hero-copy reveal">
               <span className="hero-badge">{ui.hero.eyebrow}</span>
-              <TypewriterIntro text={ui.hero.intro1} lang={lang} />
+              <TypewriterIntro text={ui.hero.intro1} followup={ui.hero.intro2} lang={lang} />
               <h1>{ui.hero.title}</h1>
               <div className="hero-subtitle">
                 {ui.hero.subtitle.map((line) => (
@@ -430,15 +508,18 @@ export default function Home({ view = 'home' }) {
           <div className="container">
             <div className="message-box reveal">
               <h3>{translations[lang].mainGreeting.headline}</h3>
-              <p>{translations[lang].mainGreeting.message}</p>
-              <p>{translations[lang].mainGreeting.paragraph2}</p>
-              <p>{translations[lang].mainGreeting.paragraph3}</p>
+              {translations[lang].mainGreeting.paragraphs.map((paragraph, index) => (
+                paragraph
+                  ? <p key={`${paragraph}-${index}`}>{paragraph}</p>
+                  : <div className="message-spacer" key={`spacer-${index}`} aria-hidden="true" />
+              ))}
             </div>
           </div>
         </section>}
 
         {view === 'story' && <section className="section">
           <div className="container">
+            {siteConfig.enableTerminal && <>
             <div className="section-heading reveal">
               <h2>{translations[lang].terminal.title}</h2>
             </div>
@@ -465,6 +546,7 @@ export default function Home({ view = 'home' }) {
                 </div>
               </div>
             </div>
+            </>}
           </div>
         </section>}
 
@@ -474,8 +556,21 @@ export default function Home({ view = 'home' }) {
               <h2>{translations[lang].techTitle}</h2>
             </div>
             <div className="tech-grid reveal">
-              {translations[lang].techCards.map((card) => (
-                <article className="tech-card" key={card.title}>
+              {translations[lang].techCards.map((card, index) => (
+                <article
+                  className={`tech-card ${selectedTech === index ? 'selected' : ''}`}
+                  key={card.title}
+                  role="button"
+                  tabIndex={0}
+                  aria-pressed={selectedTech === index}
+                  onClick={() => setSelectedTech(selectedTech === index ? -1 : index)}
+                  onKeyDown={(event) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                      event.preventDefault();
+                      setSelectedTech(selectedTech === index ? -1 : index);
+                    }
+                  }}
+                >
                   <h4>{card.title}</h4>
                   <pre className="ltr-code">{card.code}</pre>
                 </article>
@@ -508,7 +603,7 @@ export default function Home({ view = 'home' }) {
         {view === 'surprise' && <section className="section">
           <div className="container">
             <Error404 lang={lang} />
-            <SecretDeveloperMode lang={lang} />
+            {siteConfig.enableEasterEggs && <SecretDeveloperMode lang={lang} />}
           </div>
         </section>}
 
